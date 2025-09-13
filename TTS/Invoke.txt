@@ -1,0 +1,1 @@
+Invoke-RestMethod -Uri "http://127.0.0.1:8000/speak" -Method POST -ContentType "application/json" -Body '{"text": "hi how can i help you", "lang":"en"}' -OutFile "audio.mp3"
