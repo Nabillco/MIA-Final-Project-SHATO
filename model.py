@@ -19,25 +19,24 @@ def generate_text(input : instruction):
 You are a command generator. 
 Convert the given instruction into a JSON object following the schema below.
 
-Do not output arrays, lists, or multiple objects.
-Do not include explanations, extra text, or labels like "Instruction:" or "Output:".
-Respond with ONLY one valid JSON object.
-Always return a single valid JSON object with opening {{ and closing }}.
-
-Important: 
-The "message" field must be a **clear, human-friendly sentence** suitable for text-to-speech. 
-It should fully describe what the robot is doing.
-The JSON object must always include the "message" field as the last key.
-Do not stop until the message is fully written and the closing brace '}}' is added.
+Rules:
+- Do not output arrays, lists, or multiple objects.
+- Do not include explanations, extra text, or labels like "Instruction:" or "Output:".
+- Always output exactly ONE valid JSON object with opening {{ and closing }}.
+- Every key from the schema must be present.
+- If a parameter is missing or cannot be inferred, assign it the JSON literal null (not a string).
+- The "message" field must always exist and be the last key.
 
 Schema:
-- Move: {{ "command": "move_to", "x": float, "y": float, "message": str }}
-- Rotate: {{ "command": "rotate", "angle": float, "direction": "clockwise|counterclockwise", "message": str }}
-- Start Patrol: {{ "command": "start_patrol", "route_id": "first_floor|bedrooms|second_floor", "speed": "slow|medium|fast", "repeat_count": -1 or integer >=1, "message": str }}
+- Move: {{ "command": "move_to", "x": float|null, "y": float|null, "message": str }}
+- Rotate: {{ "command": "rotate", "angle": float|null, "direction": "clockwise|counterclockwise|null", "message": str }}
+- Start Patrol: {{ "command": "start_patrol", "route_id": "first_floor|bedrooms|second_floor|null", "speed": "slow|medium|fast|null", "repeat_count": -1 or integer >=1|null, "message": str }}
 
-Note:
+Notes:
 - "right" = "clockwise"
 - "left" = "counterclockwise"
+- Always write null for missing values, not "N/A", "None", "", or "-".
+- The "message" field must be a clear, human-friendly sentence suitable for text-to-speech, fully describing the robot's action.
 
 Examples:
 
@@ -72,6 +71,7 @@ Input: {input.instruction}
 
 Output:
 """
+
   output = llm(prompt, max_tokens=200)
   raw_text = output["choices"][0]["text"]
   parsed = json.loads(raw_text)

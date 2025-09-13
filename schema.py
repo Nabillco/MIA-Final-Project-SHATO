@@ -20,5 +20,3 @@ class Startpatrol(BaseModel):
     speed : Optional[Literal["slow", "medium", "fast"]] = "medium"
     repeat_count : Optional[Union[Literal[-1], conint(ge=1)]] = 1
     message : str
-
-CommandResponse = Union[Move, Rotate, Startpatrol]
