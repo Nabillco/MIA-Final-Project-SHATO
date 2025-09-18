@@ -1,0 +1,70 @@
+version: "3.9"
+
+services:
+  llm-service:
+    build: ./llm-service
+    container_name: llm-service
+    ports:
+      - "8001:8001"  
+      - "2222:22"   
+    volumes:
+      - ./llm-service/models:/app/models
+    environment:
+      MODEL_PATH: "/app/models/llama-3.2-3b-instruct-q4_k_m.gguf"
+      SSH_ROOT_PASSWORD: "docker_root_password"
+    restart: unless-stopped
+
+  stt-service:
+    build: ./stt-service
+    container_name: stt-service
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./stt-service:/app
+    restart: unless-stopped
+
+  validator-service:
+    build: ./robot-validator
+    container_name: validator-service
+    ports:
+      - "8002:8002"
+    volumes:
+      - ./robot-validator:/app
+    restart: unless-stopped
+
+  tts-service:
+    build: ./tts-service
+    container_name: tts-service
+    ports:
+      - "8003:8003"
+    volumes:
+      - ./tts-service:/app
+    restart: unless-stopped
+
+  orchestrator-service:
+    build: ./orchestrator
+    container_name: orchestrator-service
+    ports:
+      - "8004:8004"
+    volumes:
+      - ./orchestrator:/app
+    depends_on:
+      - llm-service
+      - stt-service
+      - validator-service
+      - tts-service
+    restart: unless-stopped
+
+  ui-service:
+    build: ./ui-service
+    container_name: ui-service
+    ports:
+      - "7860:7860"
+    volumes:
+      - ./ui-service:/app
+    depends_on:
+      - orchestrator-service
+    environment:
+      GRADIO_SERVER_NAME: "0.0.0.0"
+    restart: unless-stopped
+
