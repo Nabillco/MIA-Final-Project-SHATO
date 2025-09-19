@@ -17,7 +17,7 @@
 
 ## Overview
 
-SHATO is intended to process spoken input, convert it to text, feed the text into a language model to formulate structured commands or responses, validate those responses, convert them back to speech (if needed), and deliver them via a simple UI. The goal is reliability, clarity in output (e.g. valid JSON for robot control or structured outcomes), and modularity so different components can be replaced or tuned independently.
+SHATO is intended to process spoken input, convert it to text, feed the text into a language model to formulate structured commands or responses, validate those responses, convert them back to speech, and deliver them via a simple UI. The goal is reliability, clarity in output (e.g. valid JSON for robot control or structured outcomes), and modularity so different components can be replaced or tuned independently.
 
 ---
 
