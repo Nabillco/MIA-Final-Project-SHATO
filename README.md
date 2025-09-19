@@ -56,11 +56,6 @@ Here’s what each service does, roughly:
 
 ---
 
-## 📂 Project Structure
-Got it ✅ we’ll **focus only on the tree** now — making it clean and professional for your README.
-Here’s the **fixed version** (no compression, no messy spacing, pure structure):
-
-
 ## 📂 Project Structure  
 
 ```
