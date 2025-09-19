@@ -31,45 +31,11 @@ Below is a high-level view of how the system works:
 ```
 
 * 💻**UI-Service**: Interface for user input/output (likely via web).
-Framework: Gradio
-
-Functionality: Provides a web interface with a "Record" button for live voice interaction and displays the pipeline's output.
-
 * 🎙 **STT-Service**: Converts speech to text.
-Framework: FastAPI
-
-Model Constraint: Uses a deep learning model (e.g., faster-whisper for small.en)
-
-Functionality: Transcribes spoken audio into text
-
 * 🧠**LLM-Service**: Processes textual instruction via a quantized language model, produces structured text (JSON).
-Framework: FastAPI, llama.cpp
-
-Core Logic: Maps natural language to a predefined, valid robot command detailed in the schema. Generates a parseable JSON output containing the command and a verbal response
-
-Model Constraint: Uses a resource-efficient, preferably quantized LLM (e.g., Llama 3.2 3B Instruct Q4_K_M GGUF)
 * ✅**Validator-Service**: Checks the output of LLM for correctness / format (e.g., JSON, schema).
-Framework: FastAPI
-
-Purpose: Simulates the robot's control system and acts as a command validator
-
-Endpoint: Exposes /execute_command for POST requests with a JSON payload
-
-Functionality:
-
-Validation: Strictly checks if the incoming JSON conforms to the "Strict Robot Command Schema"
-
-Logging: Logs success messages for valid commands and detailed error messages for invalid ones
-
 * 🔊**TTS-Service**: Converts validated responses to speech.
-Framework: FastAPI, gTTS
-
-Functionality: Converts text responses into spoken audio
-
 * 💻 **Orchestrator-Service**: Coordinates the flow among the services.
-Framework: FastAPI
-
-Responsibility: The central nervous system. It routes data between services, manages the flow of information, and aggregates results.
 
 All services are containerized, and run together via Docker Compose. Each listens on its own port. Volumes are used for shared data where needed (e.g. model files).
 
@@ -91,30 +57,30 @@ Here’s what each service does, roughly:
 ---
 
 ## 📂 Project Structure
-├── docker-compose.yml
-├── llm-service/
+├── docker-compose.yml          # Orchestrates all services
+├── llm-service/                # LLM inference with LLaMA-3 (llama.cpp + FastAPI)
 │   ├── Dockerfile
 │   ├── LLM.py
 │   ├── requirements.txt
 │   ├── docker-entrypoint.sh
-│   └── models/
-├── orchestrator/
+│   └── models/                 # Stores GGUF model files
+├── orchestrator/               # Service coordinator (FastAPI)
 │   ├── Dockerfile
 │   ├── orchestrator.py
 │   └── requirements.txt
-├── robot-validator/
+├── robot-validator/            # Command validator (FastAPI + rule-based logic)
 │   ├── Dockerfile
 │   ├── validator.py
 │   └── requirements.txt
-├── stt-service/
+├── stt-service/                # Speech-to-Text (Whisper + FastAPI)
 │   ├── Dockerfile
 │   ├── STT_Server.py
 │   └── requirements.txt
-├── tts-service/
+├── tts-service/                # Text-to-Speech (Coqui TTS / pyttsx3 + FastAPI)
 │   ├── Dockerfile
 │   ├── TTS.py
 │   └── requirements.txt
-└── ui-service/
+└── ui-service/                 # User interface (Gradio)
     ├── Dockerfile
     ├── UIDemo.py
     └── requirements.txt
