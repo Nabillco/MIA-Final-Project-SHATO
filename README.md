@@ -32,7 +32,7 @@ Below is a high-level view of how the system works:
 * 💻**UI-Service**: Interface for user input/output (likely via web).
 *🎙 **STT-Service**: Converts speech to text.
 * 🧠**LLM-Service**: Processes textual instruction via a quantized language model, produces structured text (JSON).
-*✅ **Validator-Service**: Checks the output of LLM for correctness / format (e.g., JSON, schema).
+*✅**Validator-Service**: Checks the output of LLM for correctness / format (e.g., JSON, schema).
 * 🔊**TTS-Service**: Converts validated responses to speech.
 *💻 **Orchestrator-Service**: Coordinates the flow among the services.
 
