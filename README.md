@@ -57,33 +57,41 @@ Here’s what each service does, roughly:
 ---
 
 ## 📂 Project Structure
-├── docker-compose.yml          # Orchestrates all services
-├── llm-service/                # LLM inference with LLaMA-3 (llama.cpp + FastAPI)
+├── docker-compose.yml          
+├── llm-service/                
 │   ├── Dockerfile
 │   ├── LLM.py
 │   ├── requirements.txt
 │   ├── docker-entrypoint.sh
-│   └── models/                 # Stores GGUF model files
-├── orchestrator/               # Service coordinator (FastAPI)
+│   └── models/                 
+├── orchestrator/              
 │   ├── Dockerfile
 │   ├── orchestrator.py
 │   └── requirements.txt
-├── robot-validator/            # Command validator (FastAPI + rule-based logic)
+├── robot-validator/          
 │   ├── Dockerfile
 │   ├── validator.py
 │   └── requirements.txt
-├── stt-service/                # Speech-to-Text (Whisper + FastAPI)
+├── stt-service/               
 │   ├── Dockerfile
 │   ├── STT_Server.py
 │   └── requirements.txt
-├── tts-service/                # Text-to-Speech (Coqui TTS / pyttsx3 + FastAPI)
+├── tts-service/               
 │   ├── Dockerfile
 │   ├── TTS.py
 │   └── requirements.txt
-└── ui-service/                 # User interface (Gradio)
+└── ui-service/                
     ├── Dockerfile
     ├── UIDemo.py
     └── requirements.txt
+
+```markdown
+- **llm-service/** → Runs LLaMA-3 inference (llama.cpp + FastAPI).  
+- **orchestrator/** → Coordinates between all services.  
+- **robot-validator/** → Validates JSON commands (FastAPI + rule-based).  
+- **stt-service/** → Speech-to-text (Whisper + FastAPI).  
+- **tts-service/** → Text-to-speech (Coqui TTS / pyttsx3 + FastAPI).  
+- **ui-service/** → User interface (Gradio).  
 
 --- 
 
