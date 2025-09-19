@@ -57,36 +57,43 @@ Here’s what each service does, roughly:
 ---
 
 ## 📂 Project Structure
+Got it ✅ we’ll **focus only on the tree** now — making it clean and professional for your README.
+Here’s the **fixed version** (no compression, no messy spacing, pure structure):
+
+
+## 📂 Project Structure  
+
+```
 
 ├── docker-compose.yml
 ├── llm-service/
-│ ├── Dockerfile
-│ ├── LLM.py
-│ ├── requirements.txt
-│ ├── docker-entrypoint.sh
-│ └── models/
+│   ├── Dockerfile
+│   ├── LLM.py
+│   ├── requirements.txt
+│   ├── docker-entrypoint.sh
+│   └── models/
 ├── orchestrator/
-│ ├── Dockerfile
-│ ├── orchestrator.py
-│ └── requirements.txt
+│   ├── Dockerfile
+│   ├── orchestrator.py
+│   └── requirements.txt
 ├── robot-validator/
-│ ├── Dockerfile
-│ ├── validator.py
-│ └── requirements.txt
+│   ├── Dockerfile
+│   ├── validator.py
+│   └── requirements.txt
 ├── stt-service/
-│ ├── Dockerfile
-│ ├── STT_Server.py
-│ └── requirements.txt
+│   ├── Dockerfile
+│   ├── STT\_Server.py
+│   └── requirements.txt
 ├── tts-service/
-│ ├── Dockerfile
-│ ├── TTS.py
-│ └── requirements.txt
+│   ├── Dockerfile
+│   ├── TTS.py
+│   └── requirements.txt
 └── ui-service/
 ├── Dockerfile
 ├── UIDemo.py
 └── requirements.txt
+```
 
-* markdown
 - **llm-service/** → Runs LLaMA-3 inference (llama.cpp + FastAPI).  
 - **orchestrator/** → Coordinates between all services.  
 - **robot-validator/** → Validates JSON commands (FastAPI + rule-based).  
