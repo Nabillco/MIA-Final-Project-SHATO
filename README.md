@@ -57,33 +57,33 @@ Here’s what each service does, roughly:
 ---
 
 ## 📂 Project Structure
-├── docker-compose.yml          
-├── llm-service/                
-│   ├── Dockerfile
-│   ├── LLM.py
-│   ├── requirements.txt
-│   ├── docker-entrypoint.sh
-│   └── models/                 
-├── orchestrator/              
-│   ├── Dockerfile
-│   ├── orchestrator.py
-│   └── requirements.txt
-├── robot-validator/          
-│   ├── Dockerfile
-│   ├── validator.py
-│   └── requirements.txt
-├── stt-service/               
-│   ├── Dockerfile
-│   ├── STT_Server.py
-│   └── requirements.txt
-├── tts-service/               
-│   ├── Dockerfile
-│   ├── TTS.py
-│   └── requirements.txt
-└── ui-service/                
-    ├── Dockerfile
-    ├── UIDemo.py
-    └── requirements.txt
+├── docker-compose.yml
+├── llm-service/
+│ ├── Dockerfile
+│ ├── LLM.py
+│ ├── requirements.txt
+│ ├── docker-entrypoint.sh
+│ └── models/
+├── orchestrator/
+│ ├── Dockerfile
+│ ├── orchestrator.py
+│ └── requirements.txt
+├── robot-validator/
+│ ├── Dockerfile
+│ ├── validator.py
+│ └── requirements.txt
+├── stt-service/
+│ ├── Dockerfile
+│ ├── STT_Server.py
+│ └── requirements.txt
+├── tts-service/
+│ ├── Dockerfile
+│ ├── TTS.py
+│ └── requirements.txt
+└── ui-service/
+├── Dockerfile
+├── UIDemo.py
+└── requirements.txt
 
 ```markdown
 - **llm-service/** → Runs LLaMA-3 inference (llama.cpp + FastAPI).  
@@ -92,7 +92,7 @@ Here’s what each service does, roughly:
 - **stt-service/** → Speech-to-text (Whisper + FastAPI).  
 - **tts-service/** → Text-to-speech (Coqui TTS / pyttsx3 + FastAPI).  
 - **ui-service/** → User interface (Gradio).  
-
+```
 --- 
 
 ## Requirements
