@@ -57,6 +57,7 @@ Here’s what each service does, roughly:
 ---
 
 ## 📂 Project Structure
+
 ├── docker-compose.yml
 ├── llm-service/
 │ ├── Dockerfile
@@ -85,14 +86,14 @@ Here’s what each service does, roughly:
 ├── UIDemo.py
 └── requirements.txt
 
-```markdown
+* markdown
 - **llm-service/** → Runs LLaMA-3 inference (llama.cpp + FastAPI).  
 - **orchestrator/** → Coordinates between all services.  
 - **robot-validator/** → Validates JSON commands (FastAPI + rule-based).  
 - **stt-service/** → Speech-to-text (Whisper + FastAPI).  
 - **tts-service/** → Text-to-speech (Coqui TTS / pyttsx3 + FastAPI).  
 - **ui-service/** → User interface (Gradio).  
-```
+
 --- 
 
 ## Requirements
