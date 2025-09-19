@@ -1,4 +1,4 @@
-# SHATO: MIA Final Project
+# 🤖 SHATO: MIA Final Project
 
 **SHATO** is a modular, containerized pipeline that enables speech-based interactions, using multiple services including speech-to-text, a large language model (LLM), validation of outputs, text-to-speech, and a user interface. This README describes the project structure, how to set it up, and how the parts interact.
 
@@ -9,10 +9,11 @@
 1. [Overview](#overview)
 2. [Architecture](#architecture)
 3. [Services](#services)
-4. [Requirements](#requirements)
-5. [Setup & Run](#setup--run)
-6. [Usage](#usage)
-7. [Design Decisions](#design-decisions)
+4. [project Structure](#project-structure)
+5. [Requirements](#requirements)
+6. [Setup & Run](#setup--run)
+7. [Usage](#usage)
+8. [Design Decisions](#design-decisions)
 ---
 
 ## Overview
@@ -30,11 +31,45 @@ Below is a high-level view of how the system works:
 ```
 
 * 💻**UI-Service**: Interface for user input/output (likely via web).
+Framework: Gradio
+
+Functionality: Provides a web interface with a "Record" button for live voice interaction and displays the pipeline's output.
+
 * 🎙 **STT-Service**: Converts speech to text.
+Framework: FastAPI
+
+Model Constraint: Uses a deep learning model (e.g., faster-whisper for small.en)
+
+Functionality: Transcribes spoken audio into text
+
 * 🧠**LLM-Service**: Processes textual instruction via a quantized language model, produces structured text (JSON).
+Framework: FastAPI, llama.cpp
+
+Core Logic: Maps natural language to a predefined, valid robot command detailed in the schema. Generates a parseable JSON output containing the command and a verbal response
+
+Model Constraint: Uses a resource-efficient, preferably quantized LLM (e.g., Llama 3.2 3B Instruct Q4_K_M GGUF)
 * ✅**Validator-Service**: Checks the output of LLM for correctness / format (e.g., JSON, schema).
+Framework: FastAPI
+
+Purpose: Simulates the robot's control system and acts as a command validator
+
+Endpoint: Exposes /execute_command for POST requests with a JSON payload
+
+Functionality:
+
+Validation: Strictly checks if the incoming JSON conforms to the "Strict Robot Command Schema"
+
+Logging: Logs success messages for valid commands and detailed error messages for invalid ones
+
 * 🔊**TTS-Service**: Converts validated responses to speech.
+Framework: FastAPI, gTTS
+
+Functionality: Converts text responses into spoken audio
+
 * 💻 **Orchestrator-Service**: Coordinates the flow among the services.
+Framework: FastAPI
+
+Responsibility: The central nervous system. It routes data between services, manages the flow of information, and aggregates results.
 
 All services are containerized, and run together via Docker Compose. Each listens on its own port. Volumes are used for shared data where needed (e.g. model files).
 
@@ -54,6 +89,37 @@ Here’s what each service does, roughly:
 | `ui-service`           | Front-end interface (likely web) for users to interact with the system.                                                                       |
 
 ---
+
+## 📂 Project Structure
+├── docker-compose.yml
+├── llm-service/
+│   ├── Dockerfile
+│   ├── LLM.py
+│   ├── requirements.txt
+│   ├── docker-entrypoint.sh
+│   └── models/
+├── orchestrator/
+│   ├── Dockerfile
+│   ├── orchestrator.py
+│   └── requirements.txt
+├── robot-validator/
+│   ├── Dockerfile
+│   ├── validator.py
+│   └── requirements.txt
+├── stt-service/
+│   ├── Dockerfile
+│   ├── STT_Server.py
+│   └── requirements.txt
+├── tts-service/
+│   ├── Dockerfile
+│   ├── TTS.py
+│   └── requirements.txt
+└── ui-service/
+    ├── Dockerfile
+    ├── UIDemo.py
+    └── requirements.txt
+
+--- 
 
 ## Requirements
 
